@@ -1,0 +1,23 @@
+version: '3'
+services:
+    web:
+        build: .
+        depends_on:
+            - dblink
+        ports:
+            - "8080:80"
+        volumes:
+            - ./docker/xdebug/xdebug.ini:/etc/php5/mods-available/xdebug.ini
+            - ./docker/nginx:/etc/nginx/sites-enabled
+            - ./projects:/var/www
+    dblink:
+        image: mysql:5.6
+        environment:
+            - MYSQL_ROOT_PASSWORD=wolfstub
+            - MYSQL_DATABASE=dbwolfstub
+            - --character-set-server=utf8mb4
+            - --collation-server=utf8mb4_general_ci
+        volumes:
+            - dbdata:/var/lib/mysql
+volumes:
+    dbdata:
