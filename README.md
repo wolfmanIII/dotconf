@@ -1,0 +1,2 @@
+# dotconf
+configuration files
